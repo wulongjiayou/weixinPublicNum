@@ -2,12 +2,15 @@
 const express=require('express');
 const url=require('url');
 const qs=require('querystring');
+//引入xml格式转换的包
 const parseString = require('xml2js').parseString;
 let app=express();
 app.all('/check',(req,res)=>{
 	console.log(req.method);
 	req.on('data',(bodystr)=>{
+		//将xml格式转换为对象
 		parseString(bodystr.toString(), function (err, result) {
+			//从对象里面取出输入的值
 			let xmlstr=result.xml.Content[0];
 			if(xmlstr.trim()=='3'){
 				// console.log(xmlstr.trim())
